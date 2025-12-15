@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plan de Estudios · Psicología — Mejorado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent:#A31E1A; /* Auburn */
+      --accent-dark:#7A0F0F; /* Darker Auburn for gradient */
+      --gold:#FCD116; /* Gold */
+      --gold-dark:#C9A227; /* Satin Sheen Gold */
+      --green:#078930; /* Forest Green */
+      --gray-dark:#595959; /* Davy's Gray */
+      --gray-mid:#A5A5A5; /* Silver Dark */
+      --gray-light:#CCCCCC; /* Silver */
+      --muted:#666;
+      --bg:#f5f5f7;
+      --card:#ffffff;
+      --radius:12px;
+    }
+
+    * { box-sizing:border-box; }
+    body {
+      zoom:0.75;
+      margin:0;
+      font-family:'Red Hat Display', system-ui;
+      background:var(--bg);
+      color:#222;
+    }
+
+    /* Ajuste para que en CELULAR se vea normal (100%) */
+    @media(max-width:600px){
+      body{
+        zoom:1 !important; /* restaura tamaño real en móvil */
+      }
+    }
+
+    header {
+      background:linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+      padding:18px 24px;
+      color:#fff;
+      box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    }
+    nav { display:flex; gap:16px; align-items:center; }
+    nav a { color:#fff; font-weight:600; text-decoration:none; opacity:0.9; }
+    nav a:hover { opacity:1; }
+
+    .container { max-width:1200px; margin:0 auto; padding:20px; }
+
+    .hero {
+      background:var(--card);
+      padding:20px 24px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+      border:2px solid var(--gray-dark);
+    }
+    .hero h1{ margin:0 0 4px; }
+
+    .semestres { display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; margin-top:18px; }
+    .sem-btn {
+      padding:6px 8px;
+      background:#fff;
+      border-radius:var(--radius);
+      border:1px solid #ddd;
+      cursor:pointer;
+      transition:all 0.18s ease;
+      text-align:center;
+      box-shadow:0 2px 6px var(--gray-mid);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+    }
+    .sem-btn:hover { background:var(--accent-dark); color:#fff; border-color:var(--accent-dark); }
+    .sem-btn.active { background: var(--gray-dark); color:#fff; border-color: var(--gray-dark); box-shadow:0 4px 10px rgba(0,0,0,0.12); }
+
+    .layout { display:grid; grid-template-columns:320px 1fr; gap:20px; margin-top:20px; }
+
+    .card { background:var(--card); border-radius:var(--radius); padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+
+    .grid-malla { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px; }
+
+    .malla-card { border:1px solid #eee; padding:12px; border-radius:var(--radius); cursor:pointer; transition:0.15s; background:#fafafa; }
+    .malla-card:hover { background:#f3f3f3; }
+
+    footer { margin-top:30px; background:#111; color:#ccc; padding:20px; }
+
+    @media(max-width:900px){ .layout { grid-template-columns:1fr; } .course-list { max-height:280px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav style="align-items:center; gap:20px;">
+        <span style="display:flex; align-items:center; gap:10px;">
+  <span style="font-family:'Red Hat Display', sans-serif; font-size:60px; font-weight:900; letter-spacing:-4px; color:#FFFFFF;">CUC</span>
+  <span style="font-family:'Red Hat Display', sans-serif; font-size:34px; font-weight:300; letter-spacing:1px; color:#FFFFFF;">UNIVERSIDAD DE LA COSTA</span>
+</span>
+<div style="flex:1"></div>
+<a href="#programa">Psicología</a>
+<a href="#malla">Malla</a>
+<a href="#creditos">Créditos</a>
+</nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <h1>Plan de Estudios I — Psicología</h1>
+    </section>
+
+    <section class="semestres" aria-label="Semestres">
+      <!-- botones generados por JS -->
+    </section>
+
+    <div class="layout">
+
+      <aside class="card" style="border-top:4px solid var(--accent);">
+        <h3 style="color:var(--accent); margin-bottom:8px; padding-bottom:4px;">Información del curso</h3>
+        <h2 id="curso-title">Selecciona un curso</h2>
+        <p id="curso-meta" style="color:#000; font-size:14px; line-height:1.5;"><strong>Código:</strong> —<br><strong>Créditos:</strong> —</p>
+        <p id="curso-desc" style="font-size:14px; color:#444; margin-top:8px;"><strong>Descripción:</strong><br>Selecciona una asignatura para ver la información detallada.</p>
+      </aside>
+
+      <section>
+        <div class="card" style="margin-bottom:16px;">
+          <h3>Malla curricular Psicología I</h3>
+          <div class="grid-malla" id="malla" aria-live="polite"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <section style="margin-top:20px;">
+      <div class="card">
+        <h3 id="creditos">Derechos reservados · 2025</h3>
+        <p style="color:var(--muted)">Ejecutores del diseño:<br>• Álvaro Romero Pérez<br>• Carlos Rodríguez</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <span><span style="font-size:42px; font-weight:900;">CUC</span> <span style="font-size:18px; font-weight:400;">UNIVERSIDAD DE LA COSTA</span></span>
+      <span>© 2025</span>
+    </div>
+  </footer>
+
+  <script>
+    /* --------------------
+       DATA (mismo contenido) - corregido: reemplazados los niveles $1 por números
+    -------------------- */
+    const cursos = [
+// SEMESTRE 1
+{curso:'BIOLOGÍA CELULAR', codigo:'14L00', creditos:3, nivel:1, descripcion:''},
+{curso:'SENSOPERCEPCIÓN Y ATENCIÓN', codigo:'14L01', creditos:3, nivel:1, descripcion:''},
+{curso:'ELECTIVA DE HUMANIDADES I', codigo:'14L02', creditos:3, nivel:1, descripcion:''},
+{curso:'ELECTIVA DE HUMANIDADES II', codigo:'14L03', creditos:3, nivel:1, descripcion:''},
+{curso:'LA CIENCIA EN LO QUE HACEMOS', codigo:'14L04', creditos:3, nivel:1, descripcion:''},
+{curso:'BIVE I', codigo:'14L05', creditos:1, nivel:1, descripcion:''},
+
+// SEMESTRE 2
+{curso:'NEUROANATOMÍA', codigo:'14L06', creditos:3, nivel:2, descripcion:'Prerrequisito: BIOLOGÍA CELULAR (14L00).'},
+{curso:'EMOCIÓN Y MOTIVACIÓN', codigo:'14L07', creditos:3, nivel:2, descripcion:'Prerrequisito: SENSOPERCEPCIÓN Y ATENCIÓN (14L01)'},
+{curso:'ELECTIVA DE CIENCIA, TECNOLOGÍA E INNOVACIÓN', codigo:'14L08', creditos:3, nivel:2, descripcion:''},
+{curso:'YO Y LOS OTROS: DE LA IDENTIDAD A LA RELACIÓN', codigo:'14L09', creditos:3, nivel:2, descripcion:''},
+{curso:'EL PODER DE LOS DATOS: CÓMO ANALIZARLOS', codigo:'14L10', creditos:3, nivel:2, descripcion:''},
+{curso:'BIVE II', codigo:'14L11', creditos:1, nivel:2, descripcion:'Prerrequisito: BIVE I(14L05)'},
+
+// SEMESTRE 3
+{curso:'NEUROFISIOLOGÍA', codigo:'14L12', creditos:3, nivel:3, descripcion:'Prerrequisito: NEUROANATOMÍA (14L06)'},
+{curso:'MEMORIA Y APRENDIZAJE', codigo:'14L13', creditos:3, nivel:3, descripcion:'Prerrequisito: SENSOPERCEPCIÓN Y ATENCIÓN (14L01)'},
+{curso:'DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA', codigo:'14L14', creditos:3, nivel:3, descripcion:''},
+{curso:'COMPRENSIÓN DEL INDIVIDUO EN SOCIEDAD', codigo:'14L15', creditos:3, nivel:3, descripcion:''},
+{curso:'EVALUACIÓN PSICOLÓGICA', codigo:'14L16', creditos:3, nivel:3, descripcion:'Prerrequisito: EL PODER DE LOS DATOS: CÓMO ANALIZARLOS (14L10)'},
+{curso:'BIVE III', codigo:'14L17', creditos:1, nivel:3, descripcion:'Prerrequisito: BIVE II(14L11)'},
+
+// SEMESTRE 4
+{curso:'ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD', codigo:'14L18', creditos:3, nivel:4, descripcion:''},
+{curso:'PENSAMIENTO, COGNICIÓN Y LENGUAJE', codigo:'14L19', creditos:3, nivel:4, descripcion:'Prerrequisito: MEMORIA Y APRENDIZAJE(14L13)'},
+{curso:'DE LA ADOLESCENCIA AL ENVEJECER', codigo:'14L20', creditos:3, nivel:4, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
+{curso:'PERSONA, GRUPOS Y ORGANIZACIONES', codigo:'14L21', creditos:3, nivel:4, descripcion:'Prerrequisito: COMPRENSIÓN DEL INDIVIDUO EN SOCIEDAD (14L15)'},
+{curso:'DISCURSO, ACCIÓN Y CONOCIMIENTO', codigo:'14L22', creditos:3, nivel:4, descripcion:''},
+{curso:'BIVE IV', codigo:'14L23', creditos:1, nivel:4, descripcion:'Prerrequisito: BIVE III(14L17)'},
+
+// SEMESTRE 5
+{curso:'NEUROPSICOLOGÍA', codigo:'14L24', creditos:3, nivel:5, descripcion:'Prerrequisito: PENSAMIENTO, COGNICIÓN Y LENGUAJE (14L19)'},
+{curso:'TENDENCIAS, EVALUACIÓN Y MODIFICACIÓN DE LA CONDUCTA', codigo:'14L25', creditos:3, nivel:5, descripcion:'Prerrequisito: PENSAMIENTO, COGNICIÓN Y LENGUAJE (14L19)'},
+{curso:'PSICOPATOLOGÍA INFANTOJUVENIL', codigo:'14L26', creditos:3, nivel:5, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
+{curso:'DINAMIZANDO PROCESOS PSICOSOCIALES', codigo:'14L27', creditos:3, nivel:5, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
+{curso:'SUFICIENCIA SEGUNDO IDIOMAS I', codigo:'14L28', creditos:3, nivel:5, descripcion:''},
+{curso:'ELECTIVA GERENCIAL I', codigo:'14L29', creditos:3, nivel:5, descripcion:'Prerrequisito: BIVE IV (14L23)'},
+
+// SEMESTRE 6
+{curso:'ATENCIÓN EN EMERGENCIA E INTERVENCIÓN EN CRISIS', codigo:'14L30', creditos:3, nivel:6, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
+{curso:'FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS', codigo:'14L31', creditos:3, nivel:6, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
+{curso:'PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO', codigo:'14L32', creditos:3, nivel:6, descripcion:'Prerrequisito: PSICOPATOLOGÍA INFANTOJUVENIL (14L26)'},
+{curso:'PSICOLOGÍA Y CONTEXTOS EDUCATIVOS', codigo:'14L33', creditos:3, nivel:6, descripcion:'Prerrequisito: NEUROPSICOLOGÍA (14L24)'},
+{curso:'SUFICIENCIA SEGUNDO IDIOMAS II', codigo:'14L34', creditos:3, nivel:6, descripcion:'Prerrequisito: SUFICIENCIA SEGUNDO IDIOMAS I (14L28)'},
+{curso:'ELECTIVA GERENCIAL II', codigo:'14L35', creditos:3, nivel:6, descripcion:'Prerrequisito: BIVE IV (14L23)'},
+
+// SEMESTRE 7
+{curso:'PSICOLOGÍA JURÍDICA Y FORENSE', codigo:'14L36', creditos:3, nivel:7, descripcion:'Prerrequisito: PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO (14L32)'},
+{curso:'PSICOLOGÍA, EXISTENCIA Y SENTIDO', codigo:'14L37', creditos:3, nivel:7, descripcion:'Prerrequisito: FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS (14L31)'},
+{curso:'PSICOLOGÍA DE LA SALUD', codigo:'14L38', creditos:3, nivel:7, descripcion:'Prerrequisito: PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO (14L32)'},
+{curso:'GESTIÓN DEL TALENTO EN LAS ORGANIZACIONES', codigo:'14L39', creditos:3, nivel:7, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
+{curso:'SUFICIENCIA SEGUNDO IDIOMAS III', codigo:'14L40', creditos:3, nivel:7, descripcion:'Prerrequisito: SUFICIENCIA SEGUNDO IDIOMAS II (14L35)'},
+{curso:'ELECTIVA GERENCIAL III', codigo:'14L41', creditos:3, nivel:7, descripcion:'Prerrequisito: BIVE IV (14L23)'},
+
+// SEMESTRE 8
+{curso:'ELECTIVA DE PROFUNDIZACIÓN I', codigo:'14L42', creditos:3, nivel:8, descripcion:''},
+{curso:'ELECTIVA DE PROFUNDIZACIÓN II', codigo:'14L43', creditos:3, nivel:8, descripcion:''},
+{curso:'ELECTIVA DE PROFUNDIZACIÓN III', codigo:'14L44', creditos:3, nivel:8, descripcion:''},
+{curso:'ELECTIVA DE PROFUNDIZACIÓN IV', codigo:'14L45', creditos:3, nivel:8, descripcion:''},
+{curso:'ELECTIVA GERENCIAL IV', codigo:'14L46', creditos:3, nivel:8, descripcion:'Prerrequisito: BIVE IV (14L23)'},
+
+// SEMESTRE 9
+{curso:'PRÁCTICA CLÍNICA', codigo:'14L47', creditos:6, nivel:9, descripcion:'Prerrequisito: ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD,ATENCIÓN EN EMERGENCIA E INTERVENCIÓN EN CRISIS,PSICOLOGÍA DE LA SALUD,ELECTIVA DE PROFUNDIZACIÓN I,ELECTIVA DE PROFUNDIZACIÓN II,ELECTIVA DE PROFUNDIZACIÓN III,ELECTIVA DE PROFUNDIZACIÓN IV'},
+{curso:'OPCIÓN DE GRADO I', codigo:'14L48', creditos:9, nivel:9, descripcion:''},
+
+// SEMESTRE 10
+{curso:'PRÁCTICA PROFESIONAL', codigo:'14L49', creditos:12, nivel:10, descripcion:'Prerrequisito: CULMINAR DE MANERA SATISFACTORIA TODAS LAS ASIGNATURAS.'},
+{curso:'OPCIÓN DE GRADO II', codigo:'14L50', creditos:3, nivel:10, descripcion:''}      
+];
+
+    /* --------------------
+       GENERACIÓN UI
+    -------------------- */
+
+    const semestresDiv = document.querySelector('.semestres');
+    for(let s=1; s<=10; s++){
+      const total = cursos.filter(c=>c.nivel===s).reduce((a,b)=>a+b.creditos,0);
+      const div = document.createElement('div');
+      div.className = 'sem-btn';
+      div.dataset.sem = s;
+      div.innerHTML = `<strong>SEMESTRE ${s}</strong><br><span style="font-size:13px;color:#666">Créditos: ${total}</span>`;
+      semestresDiv.appendChild(div);
+    }
+
+    const malla = document.getElementById('malla');
+    const title = document.getElementById('curso-title');
+    const meta = document.getElementById('curso-meta');
+    const desc = document.getElementById('curso-desc');
+
+    function renderMalla(sem){
+      malla.innerHTML = '';
+      cursos.filter(c => c.nivel === sem).forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'malla-card';
+        card.dataset.codigo = c.codigo;
+
+        // Detecta si tiene prerrequisito y aplicar color Satin Sheen Gold
+        const hasReq = c.descripcion && c.descripcion.toLowerCase().includes('prerrequisito');
+        if(hasReq){ card.style.border = '2px solid var(--gold-dark)'; card.style.background = '#F8E7B0'; }
+
+        const tipoText = c.tipo ? ' · ' + c.tipo : '';
+        card.innerHTML = `<strong>${c.curso}</strong><br><small style='color:#555'>Código ${c.codigo}${tipoText} · ${c.creditos} créditos</small>`;
+        card.onclick = () => showCourse(c);
+        malla.appendChild(card);
+      });
+    }
+
+    function showCourse(c){
+      title.textContent = c.curso;
+      meta.innerHTML = `<div style='display:flex; justify-content:space-between; align-items:center; width:100%;'>
+  <span>Código: ${c.codigo}</span>
+  <span style='text-align:center; display:flex; flex-direction:column; line-height:1;'>
+    <span style='font-size:26px; font-weight:700; color:var(--accent-dark);'>${c.creditos}</span>
+    <span style='font-size:12px; color:#555; margin-top:2px;'>créditos</span>
+  </span>
+</div>`;
+      desc.innerHTML = c.descripcion ? c.descripcion.replace(/\n/g,'<br>') : 'Sin descripción.';
+    }
+
+    document.querySelectorAll('.sem-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sem-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderMalla(parseInt(btn.dataset.sem));
+      });
+    });
+
+    // Render initial
+    renderMalla(1);
+    document.querySelector('.sem-btn[data-sem="1"]').classList.add('active');
+
+  </script>
+
+</body>
+</html>
