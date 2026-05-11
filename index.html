@@ -3,440 +3,631 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Plan de Estudios · Psicología — CUC</title>
+  <title>Plan Ciclos - I · Psicología — CUC</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
   <style>
-    /* --- VARIABLES --- */
+    /* --- 1. VARIABLES GLOBALES (PALETA OFICIAL CUC + CICLOS) --- */
     :root {
-      --primary: #9e0b1c; 
-      --primary-dark: #7a0816;
-      --gold-border: #C9A227;
-      --bg: #f4f4f4;
-      --card: #ffffff;
-      --text: #333;
-      --radius: 12px;
+      --primary: #A3161A; 
+      --primary-dark: #7A0A0E; 
+      --warning: #FCD116; 
+      --accent-gold: #C9A227; 
+      
+      --bg-body: #f9f9f9; 
+      --bg-card: #ffffff;
+      
+      /* NEGRO ABSOLUTO PARA MAYOR RELEVANCIA V2.0 */
+      --text-main: #000000; 
+      --text-muted: #111111; 
+      --border-color: #CCCCCC; 
+      
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      
+      /* COLORES POR CICLO (4 - 4 - 2 para 10 niveles) */
+      --cat-basico: #607D8B; 
+      --cat-intermedio: #C9A227; 
+      --cat-profundo: #078930; 
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    /* --- ESTRUCTURA PANTALLA FIJA (PC) --- */
     body {
       font-family: 'Montserrat', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-body);
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      margin: 0; 
+      padding: 0;
+      height: 100vh; 
+      overflow: hidden; 
     }
 
-    /* --- HEADER --- */
-    header {
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+
+    /* --- 2. BANDA SUPERIOR CON SELLO V2.0 --- */
+    .header {
       background-color: var(--primary);
       width: 100%;
-      padding: 1.5rem 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      border-bottom: 4px solid var(--primary-dark);
+      height: 30px; 
+      border-bottom: 5px solid var(--primary-dark);
+      margin-bottom: 20px;
+      flex-shrink: 0; 
+      position: relative;
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 2rem;
+      justify-content: flex-end;
+      padding-right: 25px;
+    }
+    
+    .version-badge {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 2px;
     }
 
-    .logo-container { display: flex; align-items: center; gap: 12px; color: white; padding: 0 20px; }
-    .cuc-siglas { font-weight: 900; font-size: 3.5rem; line-height: 1; letter-spacing: -2px; }
-    .cuc-texto { display: flex; flex-direction: column; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 12px; }
-    .cuc-texto span { font-weight: 300; font-size: 1.2rem; line-height: 1; text-transform: uppercase; letter-spacing: 1px; }
+    /* --- 3. CONTENEDOR PRINCIPAL FLUIDO --- */
+    .main-container { 
+      width: 90%; max-width: 1300px; margin: 0 auto; 
+      flex: 1; 
+      display: flex; flex-direction: column;
+      min-height: 0; 
+      position: relative; 
+      padding-bottom: 5px;
+    }
 
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; flex-grow: 1; padding-bottom: 40px; }
+    .hero { 
+        text-align: center; 
+        margin-bottom: 20px; 
+        position: relative; 
+        display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-title { color: var(--primary); text-transform: uppercase; font-weight: 900; font-size: 2.2rem; line-height: 1.1; }
+    .hero-subtitle { color: var(--text-main); font-weight: 800; margin-top: 5px; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
 
-    .hero { text-align: center; margin-bottom: 30px; }
-    .hero h1 { color: var(--primary); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+    .btn-primary-top {
+        position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+        background-color: #fff; border: 2px solid var(--primary); color: var(--primary); 
+        padding: 8px 25px; border-radius: 50px; cursor: pointer; font-weight: 800; 
+        font-size: 0.85rem; text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+    }
+    .btn-primary-top:hover { background-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
 
-    /* --- SEMESTRES --- */
-    .semestres { 
+    /* --- LEYENDA SUPERIOR SUAVIZADA Y SIMÉTRICA V2.0 --- */
+    .leyenda-top { 
+        position: absolute; 
+        left: 0; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        background: var(--bg-card); 
+        padding: 6px 18px; 
+        border-radius: 50px; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        border: 1px solid var(--border-color); 
+        display: flex; 
+        flex-direction: row; 
+        gap: 18px; 
+        z-index: 90; 
+    }
+    .leyenda-item { display: flex; align-items: center; gap: 8px; font-size: 0.65rem; font-weight: 500; color: #000; text-transform: uppercase; letter-spacing: 0.5px;}
+    .leyenda-color { width: 12px; height: 12px; border-radius: 3px; }
+    .color-basico { background: var(--cat-basico); }
+    .color-prof { background: var(--cat-intermedio); }
+    .color-profun { background: var(--cat-profundo); }
+
+    /* --- 4. NAVEGACIÓN (BOTONES SLIM 5x2 PARA 10 NIVELES) --- */
+    .niveles-nav { 
       display: grid; 
       grid-template-columns: repeat(5, 1fr); 
-      gap: 12px; 
-      margin-bottom: 30px; 
+      gap: 10px; 
+      margin-bottom: 20px; 
     }
-
-    @media (max-width: 768px) {
-        .semestres { grid-template-columns: repeat(2, 1fr); }
-        .cuc-siglas { font-size: 2.5rem; }
-        .cuc-texto span { font-size: 1rem; }
+    .nivel-btn { 
+        padding: 10px 5px; 
+        background: var(--bg-card); 
+        border-radius: var(--radius-sm); 
+        border: 2px solid var(--border-color); 
+        cursor: pointer; transition: all 0.2s ease-out; text-align: center; 
+        display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        min-height: 60px; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    /* SUAVIZADO: Sin negrita + Sombreado */
+    .nivel-btn-title { font-size: 0.95rem; margin-bottom: 2px; font-weight: 500; color: var(--text-main); text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.15); text-transform: uppercase;}
+    .nivel-btn-credits { font-size: 0.7rem; color: var(--text-main); font-weight: 400; }
 
-    .sem-btn {
-      padding: 15px 5px;
-      background: white;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 70px; 
-    }
-
-    .sem-btn strong { display: block; font-size: 0.95rem; margin-bottom: 4px; }
-    .sem-btn span { font-size: 0.75rem; color: #666; }
-
-    .sem-btn:hover { transform: translateY(-3px); border-color: var(--primary); color: var(--primary); }
-    .sem-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(158, 11, 28, 0.3); }
-    .sem-btn.active span { color: rgba(255,255,255,0.8); }
-
-    /* --- LAYOUT Y TARJETAS --- */
-    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 25px; margin-bottom: 30px; }
-    .card { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e1e1e1; }
-    aside.card { border-top: 5px solid var(--primary); height: fit-content; position: sticky; top: 20px; }
+    /* GLOW INTERNO V2.0 */
+    .cat-basico { border-left: 4px solid var(--cat-basico); }
+    .cat-basico.active { border: 2px solid var(--cat-basico); box-shadow: inset 0 0 25px rgba(96, 125, 139, 0.25); }
     
-    #curso-title { color: var(--primary); margin: 10px 0; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-
-    .grid-malla { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+    .cat-intermedio { border-left: 4px solid var(--cat-intermedio); }
+    .cat-intermedio.active { border: 2px solid var(--cat-intermedio); box-shadow: inset 0 0 25px rgba(201, 162, 39, 0.25); }
     
+    .cat-profundo { border-left: 4px solid var(--cat-profundo); }
+    .cat-profundo.active { border: 2px solid var(--cat-profundo); box-shadow: inset 0 0 25px rgba(7, 137, 48, 0.25); }
+
+    /* --- 5. DASHBOARD --- */
+    .dashboard-layout { 
+        display: grid; grid-template-columns: 280px 1fr; gap: 20px; 
+        flex: 1; min-height: 0; 
+    }
+    
+    .card { 
+        background: var(--bg-card); border-radius: var(--radius-md); padding: 20px; 
+        border: 1px solid var(--border-color); display: flex; flex-direction: column; min-height: 0; 
+    }
+    
+    .panel-lateral { border-top: 5px solid var(--primary); z-index: 50; position: relative;}
+    .panel-lateral-content { overflow-y: auto; flex: 1; padding-right: 5px; } 
+    
+    .panel-header { color: #000; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid var(--border-color); display: inline-block; padding-bottom: 5px; }
+    .curso-titulo { color: var(--primary); margin: 5px 0; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; }
+    .curso-meta { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+    .curso-badge { background: var(--primary); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+
+    /* MALLA SECCION V2.0 */
+    .malla-seccion { display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    .grid-malla-container { flex: 1; overflow-y: auto; padding-right: 5px; z-index: 1; }
+    
+    /* 3 COLUMNAS ESTRICTAS Y MAYOR SEPARACIÓN */
+    .grid-malla { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 18px; 
+    }
+    
+    /* TARJETA ESTILO "CLEAN BOX" */
     .malla-card { 
-        border: 1px solid #eee; 
-        padding: 15px 10px; 
-        border-radius: var(--radius); 
+        background-color: #fcfcfc;
+        border: 1px solid #eaeaea; 
+        padding: 20px 15px; 
+        border-radius: var(--radius-md); 
         cursor: pointer; 
-        transition: all 0.2s ease; 
-        background: #fafafa; 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        min-height: 90px; 
-    }
-    .malla-card:hover { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: var(--primary); transform: translateY(-2px); }
-
-    /* --- LISTA DE REQUISITOS --- */
-    .req-list { list-style: none; padding: 0; margin-top: 15px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; overflow: hidden; }
-    .req-list li { position: relative; padding: 10px 15px 10px 15px; font-size: 0.85rem; line-height: 1.4; color: #444; border-bottom: 1px solid #eee; display: flex; flex-direction: column; }
-    .req-list li:last-child { border-bottom: none; }
-    .req-name { font-weight: 600; color: #333; }
-    .req-semestre { color: var(--primary); font-size: 0.75rem; font-weight: 600; margin-top: 2px; text-transform: uppercase; }
-
-    /* Botón Regresar - CENTRADO PERFECTO */
-    .btn-back-container { 
-        margin-top: 2rem; 
+        transition: all 0.2s ease, border-color 0.2s, box-shadow 0.2s; 
         text-align: center; 
-        width: 100%; 
-        display: flex;
-        justify-content: center;
-    }
-    
-    .btn-back { 
-        background-color: transparent; 
-        border: 2px solid var(--primary); 
-        color: var(--primary); 
-        padding: 12px 40px; 
-        font-size: 1rem; 
-        border-radius: 50px; 
-        cursor: pointer; 
-        transition: all 0.3s ease; 
-        font-weight: bold; 
-        text-transform: uppercase; 
-        letter-spacing: 1px; 
-        text-decoration: none;
-        display: inline-block;
-    }
-    .btn-back:hover { background-color: var(--primary); color: white; box-shadow: 0 4px 10px rgba(158, 11, 28, 0.3); }
-
-    /* --- FOOTER ESTÉTICO Y COMPACTO --- */
-    footer { 
-        background-color: #000000; 
-        width: 100%; 
-        padding: 1.2rem 0; 
-        margin-top: 3rem; 
-        color: white; 
-        border-top: 2px solid #333; 
-    }
-    .footer-content { 
-        width: 90%; 
-        max-width: 1200px; 
-        margin: 0 auto; 
-        display: flex; 
-        align-items: center; 
-        justify-content: flex-start; 
-        gap: 12px; 
-    }
-
-    /* Icono Copyright */
-    .copyright-icon {
-        font-size: 1.8rem;
-        color: #888;
-        line-height: 1;
-    }
-
-    .dev-info { 
+        min-height: 110px; 
         display: flex; 
         flex-direction: column; 
-        line-height: 1.2; 
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+        opacity: 0;
+        animation: popInCard 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+    }
+    .malla-card.has-req { border-left: 4px solid var(--accent-gold); } 
+    .malla-card:hover { 
+        background-color: #ffffff;
+        border-color: var(--primary); 
+        transform: translateY(-4px) !important; 
+        box-shadow: 0 8px 25px rgba(163, 22, 26, 0.12); 
+        z-index: 2;
     }
     
-    /* Título reducido */
-    .dev-title { 
-        font-size: 0.65rem; 
-        font-weight: 700; 
-        letter-spacing: 0.5px; 
-        color: #999; 
-        margin-bottom: 4px;
+    /* TEXTO NEGRO, SIN NEGRITA GRUESA Y MAYÚSCULAS */
+    .malla-curso-nombre { 
+        color: #000000; 
+        font-size: 0.85rem; 
+        line-height: 1.3; 
+        font-weight: 500; 
         text-transform: uppercase;
     }
-    
-    /* Nombres en una sola línea */
-    .dev-name { 
-        font-size: 0.85rem; 
-        font-weight: 500; 
-        color: #fff;
-    }
-    
-    /* Año reducido */
-    .dev-year {
-        font-size: 0.65rem;
-        color: #666;
-        margin-top: 4px;
+
+    @keyframes popInCard { 
+        from { opacity: 0; transform: translateY(20px) scale(0.95); } 
+        to { opacity: 1; transform: translateY(0) scale(1); } 
     }
 
-    @media(max-width:900px){ .layout { grid-template-columns:1fr; } aside.card { position: static; } }
+    /* --- LISTA DE REQUISITOS --- */
+    .req-title { color: var(--primary); display: block; margin-bottom: 6px; text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px; }
+    .req-list { list-style: none; padding: 0; background: var(--bg-body); border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
+    .req-list li { padding: 8px 12px; font-size: 0.75rem; line-height: 1.3; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; color: #000; font-weight: 600;}
+    .req-list li:last-child { border-bottom: none; }
+    .req-nivel { color: var(--primary); font-size: 0.65rem; font-weight: 800; margin-top: 3px; text-transform: uppercase;}
+    .req-empty { padding: 12px; background: var(--bg-body); border-radius: var(--radius-sm); color: #000; font-weight: 600; font-size: 0.75rem; border: 1px solid var(--border-color); }
+
+    /* --- 6. ANIMACIÓN V2.0: VENTANA FLOTANTE Y OVERLAY LOCAL --- */
+    .malla-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        z-index: 10; 
+        visibility: hidden; 
+        opacity: 0; 
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        border-radius: var(--radius-md);
+    }
+    .malla-overlay.show { visibility: visible; opacity: 1; }
+
+    .rutas-floating-card {
+        position: absolute; top: 50%; left: 50%; 
+        transform: translate(-50%, -65%) scale(0.95); /* Animación de caída */
+        width: 90%; max-width: 650px; 
+        background: rgba(255, 255, 255, 0.98); 
+        border-radius: 16px; border: none;
+        box-shadow: 0 40px 80px -20px rgba(0,0,0, 0.4); 
+        z-index: 20; 
+        visibility: hidden; 
+        opacity: 0; 
+        max-height: 90%; overflow-y: auto; overflow-x: hidden;
+        padding: 30px; 
+        transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.6s ease;
+    }
+    .rutas-floating-card.show { 
+        visibility: visible; 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1); 
+    }
+
+    .rutas-title { color: var(--primary); font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+    .rutas-subtitle { text-align: center; color: #000; font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-gold); }
+
+    .rutas-selector { display: flex; flex-direction: row; gap: 12px; margin-bottom: 10px; animation: fadeInNode 0.3s ease; }
+    
+    /* BOTONES RUTAS SUAVIZADOS */
+    .ruta-btn { flex: 1; background: rgba(248, 250, 252, 0.8); border: 2px solid var(--border-color); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 0.8rem; color: #000; transition: all 0.2s ease; text-align: center; text-transform: uppercase; line-height: 1.2; display: flex; align-items: center; justify-content: center; }
+    .ruta-btn:hover { border-color: var(--accent-gold); color: var(--primary); font-weight: 600; } 
+
+    .mapa-lista { display: none; padding-top: 10px; position: relative; }
+    .mapa-item { background: rgba(248, 250, 252, 0.9); border-left: 4px solid var(--accent-gold); padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; font-size: 0.9rem; color: var(--primary); font-weight: 800; animation: fadeInNode 0.3s ease-out forwards; opacity: 0; }
+    @keyframes fadeInNode { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .btn-rutas-volver { display: none; margin: 20px auto 0; width: 45px; height: 45px; border-radius: 50%; background: transparent; border: 2px solid var(--primary); color: var(--primary); font-size: 1.4rem; cursor: pointer; align-items: center; justify-content: center; transition: all 0.2s ease; }
+    .btn-rutas-volver:hover { background: var(--primary); color: #fff; transform: scale(1.1); box-shadow: 0 4px 10px rgba(163, 22, 26, 0.3);}
+    .close-floating { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #000; transition: color 0.2s; line-height: 1; z-index: 10; }
+
+    /* --- 7. BANDA INFERIOR NEGRA --- */
+    .footer { 
+        background-color: #000000; 
+        width: 100%; 
+        height: 30px; 
+        border-top: 5px solid var(--primary-dark); 
+        margin-top: 15px; 
+        color: white; 
+        display: flex; 
+        align-items: center; 
+        flex-shrink: 0; 
+    }
+    
+    .footer-content { 
+        width: 90%; max-width: 1300px; margin: 0 auto; 
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .dev-info { display: flex; gap: 8px; align-items: center;}
+    .dev-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+    .dev-name { font-size: 0.75rem; font-weight: 600; color: #fff; }
+    .dev-copyright { font-size: 0.7rem; font-weight: 500; color: rgba(255,255,255,0.5); }
+
+    /* --- MEDIA QUERIES --- */
+    @media (max-width: 1350px) {
+        .leyenda-top { 
+            position: relative; transform: none; top: auto; left: auto; flex-wrap: wrap; justify-content: center; 
+            border-radius: var(--radius-sm); border: 1px solid var(--border-color); 
+            margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); padding: 10px; 
+        }
+        .btn-primary-top { position: relative; top: auto; right: auto; transform: none; width: fit-content; margin-top: 5px; }
+    }
+    @media (max-width: 900px) { 
+        body { overflow-y: auto; height: auto; margin: 0; } 
+        .main-container { width: 95%; padding-bottom: 20px; }
+        .header { margin-bottom: 10px; }
+        .hero { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .hero-title { font-size: 1.6rem; }
+        .hero-subtitle { font-size: 0.95rem; }
+        
+        .leyenda-top { width: 100%; }
+
+        .niveles-nav { 
+            display: flex; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 15px; gap: 10px; 
+            scroll-behavior: smooth; -webkit-overflow-scrolling: touch; grid-template-columns: none; 
+        }
+        .niveles-nav::-webkit-scrollbar { display: none; }
+        .nivel-btn { min-width: 95px; flex-shrink: 0; }
+
+        .dashboard-layout { grid-template-columns: 1fr; flex: none; height: auto; gap: 15px; }
+        .card { overflow: visible; height: auto; padding: 15px; }
+        .panel-lateral { position: static; border-top: none; border-left: 5px solid var(--primary); }
+        .grid-malla-container { overflow-y: visible; }
+        
+        /* Ajuste a 2 columnas en móvil */
+        .grid-malla { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+        .malla-overlay { position: fixed; z-index: 100; border-radius: 0; }
+        .rutas-floating-card { position: fixed; width: 90%; left: 50%; top: 50%; transform: translate(-50%, -65%) scale(0.95); z-index: 110;}
+        .rutas-floating-card.show { transform: translate(-50%, -50%) scale(1) !important; }
+        
+        .rutas-selector { flex-direction: column; }
+        
+        .footer-content { flex-direction: column; justify-content: center; text-align: center; gap: 6px; }
+        .footer { height: auto; padding: 15px 0; margin-top: 20px;}
+    }
+    @media (max-width: 400px) {
+        .grid-malla { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo-container">
-        <div class="cuc-siglas">CUC</div>
-        <div class="cuc-texto">
-            <span class="linea-1">Universidad</span>
-            <span>de la Costa</span>
-        </div>
-    </div>
+  <header class="header">
+      <div class="version-badge">V2.0</div>
   </header>
 
-  <main class="container">
+  <main class="main-container">
     <section class="hero">
-      <h1>Plan de Estudios I — Psicología</h1>
-      <p style="color: #666; font-weight: 300;">Seleccione un semestre para ver las asignaturas</p>
+      
+      <div class="leyenda-top">
+          <div class="leyenda-item"><div class="leyenda-color color-basico"></div><span>Básico</span></div>
+          <div class="leyenda-item"><div class="leyenda-color color-prof"></div><span>Profesional</span></div>
+          <div class="leyenda-item"><div class="leyenda-color color-profun"></div><span>Profundización</span></div>
+      </div>
+
+      <h1 class="hero-title">Plan Ciclos - I</h1>
+      <h2 class="hero-subtitle">Psicología</h2>
+      
+      <a href="https://fchys.github.io/menu-academico-cuc/" class="btn-primary-top">Regresar</a>
     </section>
 
-    <section class="semestres" aria-label="Semestres"></section>
+    <nav class="niveles-nav" id="niveles-container"></nav>
 
-    <div class="layout">
-      <aside class="card">
-        <h3 style="color:#666; font-size:0.8rem; text-transform:uppercase; margin-bottom:10px; letter-spacing:1px; border-bottom:2px solid var(--primary); display:inline-block; padding-bottom:5px;">Detalles de la Asignatura</h3>
-        
-        <h2 id="curso-title">Selecciona un curso</h2>
-        
-        <div id="curso-meta" style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
-            <p style="font-size: 0.9rem; color: #888; font-style: italic;">Haga clic en una materia de la malla para ver sus detalles aquí.</p>
+    <div class="dashboard-layout">
+      <aside class="card panel-lateral">
+        <h3 class="panel-header">Detalles de la Asignatura</h3>
+        <div class="panel-lateral-content">
+            <h2 id="curso-title" class="curso-titulo">Selecciona un curso</h2>
+            <div id="curso-meta" class="curso-meta">
+                <p style="color:#000; font-weight:700; font-size: 0.85rem;">Haz clic en una materia...</p>
+            </div>
+            <div id="curso-desc"></div>
         </div>
-        
-        <div id="curso-desc" style="font-size:0.9rem; color:#444; line-height: 1.6;"></div>
       </aside>
 
-      <section>
-        <div class="card" style="margin-bottom:16px;">
-          <h3 style="margin-bottom: 20px; color: var(--primary);">Asignaturas del Semestre</h3>
-          <div class="grid-malla" id="malla" aria-live="polite"></div>
+      <section class="card malla-seccion">
+        
+        <div class="malla-overlay" id="malla-overlay"></div>
+
+        <div class="rutas-floating-card" id="rutas-card">
+            <button class="close-floating" id="btn-close-card">&times;</button>
+            <h3 class="rutas-title" id="main-rutas-title">Rutas Electivas Gerenciales</h3>
+            <p class="rutas-subtitle" id="main-rutas-subtitle">Selecciona una ruta para desplegar su estructura temática.</p>
+            
+            <div class="rutas-selector" id="rutas-selector">
+                <div class="ruta-btn" onclick="profundizarRama('Investigación')">Investigación</div>
+                <div class="ruta-btn" onclick="profundizarRama('Ejecutiva')">Ejecutiva</div>
+                <div class="ruta-btn" onclick="profundizarRama('Emprendimiento')">Emprendimiento e Innovación</div>
+            </div>
+
+            <div class="mapa-lista" id="mapa-lista"></div>
+            <button class="btn-rutas-volver" id="btn-volver-rutas" onclick="restaurarRutas()" title="Volver">&#8592;</button>
+        </div>
+
+        <h3 style="margin-bottom:15px; font-size:1rem; text-transform:uppercase; color:var(--primary); font-weight: 800; border-bottom:2px solid var(--border-color); padding-bottom:5px; z-index:1; position:relative;">Malla del Nivel</h3>
+        
+        <div class="grid-malla-container">
+            <div class="grid-malla" id="malla-container"></div>
         </div>
       </section>
     </div>
-
-    <div class="btn-back-container">
-        <a href="https://fchys.github.io/menu-academico-cuc/" class="btn-back">REGRESAR</a>
-    </div>
-
   </main>
 
-  <footer>
+  <footer class="footer">
     <div class="footer-content">
-        <div class="copyright-icon">©</div>
-        
         <div class="dev-info">
-            <span class="dev-title">DESARROLLO E IMPLEMENTACIÓN</span>
-            <span class="dev-name">Carlos Rodríguez | Álvaro Romero</span>
-            <span class="dev-year">2025 · Derechos Reservados</span>
+            <span class="dev-title">Desarrollo e implementación:</span>
+            <span class="dev-name">© Carlos Rodríguez</span>
         </div>
+        <div class="dev-copyright">2026 · Derechos Reservados CUC</div>
     </div>
   </footer>
 
   <script>
-    /* DATOS */
+    // DATOS DE LAS RUTAS GERENCIALES
+    const datosRutas = {
+        "Investigación": ["Introducción a la Investigación", "Formulación de Proyectos", "Toma de decisiones basada en datos", "Laboratorios de escritura científica"],
+        "Ejecutiva": ["Liderazgo e inteligencia emocional", "Habilidades de negociación", "Gestión de personas", "Análisis de datos y toma de decisiones"],
+        "Emprendimiento": ["Ideas Lab", "Startup Lab", "Scale Lab", "Reinforce Lab"]
+    };
+
+    // BASE DE DATOS: PLAN CICLOS I - PSICOLOGÍA (10 NIVELES)
     const cursos = [
-        // SEMESTRE 1
-        {curso:'BIOLOGÍA CELULAR', codigo:'14L00', creditos:3, nivel:1, descripcion:''},
-        {curso:'SENSOPERCEPCIÓN Y ATENCIÓN', codigo:'14L01', creditos:3, nivel:1, descripcion:''},
-        {curso:'ELECTIVA DE HUMANIDADES I', codigo:'14L02', creditos:3, nivel:1, descripcion:''},
-        {curso:'ELECTIVA DE HUMANIDADES II', codigo:'14L03', creditos:3, nivel:1, descripcion:''},
-        {curso:'LA CIENCIA EN LO QUE HACEMOS', codigo:'14L04', creditos:3, nivel:1, descripcion:''},
-        {curso:'BIVE I', codigo:'14L05', creditos:1, nivel:1, descripcion:''},
-        // SEMESTRE 2
-        {curso:'NEUROANATOMÍA', codigo:'14L06', creditos:3, nivel:2, descripcion:'Prerrequisito: BIOLOGÍA CELULAR (14L00).'},
-        {curso:'EMOCIÓN Y MOTIVACIÓN', codigo:'14L07', creditos:3, nivel:2, descripcion:'Prerrequisito: SENSOPERCEPCIÓN Y ATENCIÓN (14L01)'},
-        {curso:'ELECTIVA DE CIENCIA, TECNOLOGÍA E INNOVACIÓN', codigo:'14L08', creditos:3, nivel:2, descripcion:''},
-        {curso:'YO Y LOS OTROS: DE LA IDENTIDAD A LA RELACIÓN', codigo:'14L09', creditos:3, nivel:2, descripcion:''},
-        {curso:'EL PODER DE LOS DATOS: CÓMO ANALIZARLOS', codigo:'14L10', creditos:3, nivel:2, descripcion:''},
-        {curso:'BIVE II', codigo:'14L11', creditos:1, nivel:2, descripcion:'Prerrequisito: BIVE I(14L05)'},
-        // SEMESTRE 3
-        {curso:'NEUROFISIOLOGÍA', codigo:'14L12', creditos:3, nivel:3, descripcion:'Prerrequisito: NEUROANATOMÍA (14L06)'},
-        {curso:'MEMORIA Y APRENDIZAJE', codigo:'14L13', creditos:3, nivel:3, descripcion:'Prerrequisito: SENSOPERCEPCIÓN Y ATENCIÓN (14L01)'},
-        {curso:'DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA', codigo:'14L14', creditos:3, nivel:3, descripcion:''},
-        {curso:'COMPRENSIÓN DEL INDIVIDUO EN SOCIEDAD', codigo:'14L15', creditos:3, nivel:3, descripcion:''},
-        {curso:'EVALUACIÓN PSICOLÓGICA', codigo:'14L16', creditos:3, nivel:3, descripcion:'Prerrequisito: EL PODER DE LOS DATOS: CÓMO ANALIZARLOS (14L10)'},
-        {curso:'BIVE III', codigo:'14L17', creditos:1, nivel:3, descripcion:'Prerrequisito: BIVE II(14L11)'},
-        // SEMESTRE 4
-        {curso:'ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD', codigo:'14L18', creditos:3, nivel:4, descripcion:''},
-        {curso:'PENSAMIENTO, COGNICIÓN Y LENGUAJE', codigo:'14L19', creditos:3, nivel:4, descripcion:'Prerrequisito: MEMORIA Y APRENDIZAJE(14L13)'},
-        {curso:'DE LA ADOLESCENCIA AL ENVEJECER', codigo:'14L20', creditos:3, nivel:4, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
-        {curso:'PERSONA, GRUPOS Y ORGANIZACIONES', codigo:'14L21', creditos:3, nivel:4, descripcion:'Prerrequisito: COMPRENSIÓN DEL INDIVIDUO EN SOCIEDAD (14L15)'},
-        {curso:'DISCURSO, ACCIÓN Y CONOCIMIENTO', codigo:'14L22', creditos:3, nivel:4, descripcion:''},
-        {curso:'BIVE IV', codigo:'14L23', creditos:1, nivel:4, descripcion:'Prerrequisito: BIVE III(14L17)'},
-        // SEMESTRE 5
-        {curso:'NEUROPSICOLOGÍA', codigo:'14L24', creditos:3, nivel:5, descripcion:'Prerrequisito: PENSAMIENTO, COGNICIÓN Y LENGUAJE (14L19)'},
-        {curso:'TENDENCIAS, EVALUACIÓN Y MODIFICACIÓN DE LA CONDUCTA', codigo:'14L25', creditos:3, nivel:5, descripcion:'Prerrequisito: PENSAMIENTO, COGNICIÓN Y LENGUAJE (14L19)'},
-        {curso:'PSICOPATOLOGÍA INFANTOJUVENIL', codigo:'14L26', creditos:3, nivel:5, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
-        {curso:'DINAMIZANDO PROCESOS PSICOSOCIALES', codigo:'14L27', creditos:3, nivel:5, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
-        {curso:'SUFICIENCIA SEGUNDO IDIOMAS I', codigo:'14L28', creditos:3, nivel:5, descripcion:''},
-        {curso:'ELECTIVA GERENCIAL I', codigo:'14L29', creditos:3, nivel:5, descripcion:'Prerrequisito: BIVE IV (14L23)'},
-        // SEMESTRE 6
-        {curso:'ATENCIÓN EN EMERGENCIA E INTERVENCIÓN EN CRISIS', codigo:'14L30', creditos:3, nivel:6, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
-        {curso:'FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS', codigo:'14L31', creditos:3, nivel:6, descripcion:'Prerrequisito: DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA (14L14)'},
-        {curso:'PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO', codigo:'14L32', creditos:3, nivel:6, descripcion:'Prerrequisito: PSICOPATOLOGÍA INFANTOJUVENIL (14L26)'},
-        {curso:'PSICOLOGÍA Y CONTEXTOS EDUCATIVOS', codigo:'14L33', creditos:3, nivel:6, descripcion:'Prerrequisito: NEUROPSICOLOGÍA (14L24)'},
-        {curso:'SUFICIENCIA SEGUNDO IDIOMAS II', codigo:'14L34', creditos:3, nivel:6, descripcion:'Prerrequisito: SUFICIENCIA SEGUNDO IDIOMAS I (14L28)'},
-        {curso:'ELECTIVA GERENCIAL II', codigo:'14L35', creditos:3, nivel:6, descripcion:'Prerrequisito: BIVE IV (14L23)'},
-        // SEMESTRE 7
-        {curso:'PSICOLOGÍA JURÍDICA Y FORENSE', codigo:'14L36', creditos:3, nivel:7, descripcion:'Prerrequisito: PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO (14L32)'},
-        {curso:'PSICOLOGÍA, EXISTENCIA Y SENTIDO', codigo:'14L37', creditos:3, nivel:7, descripcion:'Prerrequisito: FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS (14L31)'},
-        {curso:'PSICOLOGÍA DE LA SALUD', codigo:'14L38', creditos:3, nivel:7, descripcion:'Prerrequisito: PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO (14L32)'},
-        {curso:'GESTIÓN DEL TALENTO EN LAS ORGANIZACIONES', codigo:'14L39', creditos:3, nivel:7, descripcion:'Prerrequisito: PERSONA, GRUPOS Y ORGANIZACIONES (14L21)'},
-        {curso:'SUFICIENCIA SEGUNDO IDIOMAS III', codigo:'14L40', creditos:3, nivel:7, descripcion:'Prerrequisito: SUFICIENCIA SEGUNDO IDIOMAS II (14L35)'},
-        {curso:'ELECTIVA GERENCIAL III', codigo:'14L41', creditos:3, nivel:7, descripcion:'Prerrequisito: BIVE IV (14L23)'},
-        // SEMESTRE 8
-        {curso:'ELECTIVA DE PROFUNDIZACIÓN I', codigo:'14L42', creditos:3, nivel:8, descripcion:''},
-        {curso:'ELECTIVA DE PROFUNDIZACIÓN II', codigo:'14L43', creditos:3, nivel:8, descripcion:''},
-        {curso:'ELECTIVA DE PROFUNDIZACIÓN III', codigo:'14L44', creditos:3, nivel:8, descripcion:''},
-        {curso:'ELECTIVA DE PROFUNDIZACIÓN IV', codigo:'14L45', creditos:3, nivel:8, descripcion:''},
-        {curso:'ELECTIVA GERENCIAL IV', codigo:'14L46', creditos:3, nivel:8, descripcion:'Prerrequisito: BIVE IV (14L23)'},
-        // SEMESTRE 9
-        {curso:'PRÁCTICA CLÍNICA', codigo:'14L47', creditos:6, nivel:9, descripcion:'Prerrequisito: ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD,ATENCIÓN EN EMERGENCIA E INTERVENCIÓN EN CRISIS,PSICOLOGÍA DE LA SALUD,ELECTIVA DE PROFUNDIZACIÓN I,ELECTIVA DE PROFUNDIZACIÓN II,ELECTIVA DE PROFUNDIZACIÓN III,ELECTIVA DE PROFUNDIZACIÓN IV'},
-        {curso:'OPCIÓN DE GRADO I', codigo:'14L48', creditos:9, nivel:9, descripcion:''},
-        // SEMESTRE 10
-        {curso:'PRÁCTICA PROFESIONAL', codigo:'14L49', creditos:12, nivel:10, descripcion:'Prerrequisito: CULMINAR DE MANERA SATISFACTORIA TODAS LAS ASIGNATURAS.'},
-        {curso:'OPCIÓN DE GRADO II', codigo:'14L50', creditos:3, nivel:10, descripcion:''}      
+        {curso:'BIOLOGÍA CELULAR', codigo:'14L00', creditos:3, nivel:1, reqs:[]},
+        {curso:'SENSOPERCEPCIÓN Y ATENCIÓN', codigo:'14L01', creditos:3, nivel:1, reqs:[]},
+        {curso:'ELECTIVA DE HUMANIDADES I', codigo:'14L02', creditos:3, nivel:1, reqs:[]},
+        {curso:'ELECTIVA DE HUMANIDADES II', codigo:'14L03', creditos:3, nivel:1, reqs:[]},
+        {curso:'LA CIENCIA EN LO QUE HACEMOS', codigo:'14L04', creditos:3, nivel:1, reqs:[]},
+        {curso:'BIVE I', codigo:'14L05', creditos:1, nivel:1, reqs:[]},
+        
+        {curso:'NEUROANATOMÍA', codigo:'14L06', creditos:3, nivel:2, reqs:['14L00']},
+        {curso:'EMOCIÓN Y MOTIVACIÓN', codigo:'14L07', creditos:3, nivel:2, reqs:['14L01']},
+        {curso:'ELECTIVA DE CIENCIA, TECNOLOGÍA E INNOVACIÓN', codigo:'14L08', creditos:3, nivel:2, reqs:[]},
+        {curso:'YO Y LOS OTROS: DE LA IDENTIDAD A LA RELACIÓN', codigo:'14L09', creditos:3, nivel:2, reqs:[]},
+        {curso:'EL PODER DE LOS DATOS: CÓMO ANALIZARLOS', codigo:'14L10', creditos:3, nivel:2, reqs:[]},
+        {curso:'BIVE II', codigo:'14L11', creditos:1, nivel:2, reqs:['14L05']},
+        
+        {curso:'NEUROFISIOLOGÍA', codigo:'14L12', creditos:3, nivel:3, reqs:['14L06']},
+        {curso:'MEMORIA Y APRENDIZAJE', codigo:'14L13', creditos:3, nivel:3, reqs:['14L01']},
+        {curso:'DE LA CONCEPCIÓN AL DESPERTAR DE LA ADOLESCENCIA', codigo:'14L14', creditos:3, nivel:3, reqs:[]},
+        {curso:'COMPRENSIÓN DEL INDIVIDUO EN SOCIEDAD', codigo:'14L15', creditos:3, nivel:3, reqs:[]},
+        {curso:'EVALUACIÓN PSICOLÓGICA', codigo:'14L16', creditos:3, nivel:3, reqs:['14L10']},
+        {curso:'BIVE III', codigo:'14L17', creditos:1, nivel:3, reqs:['14L11']},
+        
+        {curso:'ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD', codigo:'14L18', creditos:3, nivel:4, reqs:[]},
+        {curso:'PENSAMIENTO, COGNICIÓN Y LENGUAJE', codigo:'14L19', creditos:3, nivel:4, reqs:['14L13']},
+        {curso:'DE LA ADOLESCENCIA AL ENVEJECER', codigo:'14L20', creditos:3, nivel:4, reqs:['14L14']},
+        {curso:'PERSONA, GRUPOS Y ORGANIZACIONES', codigo:'14L21', creditos:3, nivel:4, reqs:['14L15']},
+        {curso:'DISCURSO, ACCIÓN Y CONOCIMIENTO', codigo:'14L22', creditos:3, nivel:4, reqs:[]},
+        {curso:'BIVE IV', codigo:'14L23', creditos:1, nivel:4, reqs:['14L17']},
+        
+        {curso:'NEUROPSICOLOGÍA', codigo:'14L24', creditos:3, nivel:5, reqs:['14L19']},
+        {curso:'TENDENCIAS, EVALUACIÓN Y MODIFICACIÓN DE LA CONDUCTA', codigo:'14L25', creditos:3, nivel:5, reqs:['14L19']},
+        {curso:'PSICOPATOLOGÍA INFANTOJUVENIL', codigo:'14L26', creditos:3, nivel:5, reqs:['14L14']},
+        {curso:'DINAMIZANDO PROCESOS PSICOSOCIALES', codigo:'14L27', creditos:3, nivel:5, reqs:['14L21']},
+        {curso:'SUFICIENCIA SEGUNDO IDIOMAS I', codigo:'14L28', creditos:3, nivel:5, reqs:[]},
+        {curso:'ELECTIVA GERENCIAL I', codigo:'14L29', creditos:3, nivel:5, reqs:['14L23']},
+        
+        {curso:'ATENCIÓN EN EMERGENCIA E INTERVENCIÓN EN CRISIS', codigo:'14L30', creditos:3, nivel:6, reqs:['14L21']},
+        {curso:'FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS', codigo:'14L31', creditos:3, nivel:6, reqs:['14L14']},
+        {curso:'PROBLEMAS DE LA SALUD MENTAL DEL ADULTO CONTEMPORÁNEO', codigo:'14L32', creditos:3, nivel:6, reqs:['14L26']},
+        {curso:'PSICOLOGÍA Y CONTEXTOS EDUCATIVOS', codigo:'14L33', creditos:3, nivel:6, reqs:['14L24']},
+        {curso:'SUFICIENCIA SEGUNDO IDIOMAS II', codigo:'14L34', creditos:3, nivel:6, reqs:['14L28']},
+        {curso:'ELECTIVA GERENCIAL II', codigo:'14L35', creditos:3, nivel:6, reqs:['14L23']},
+        
+        {curso:'PSICOLOGÍA JURÍDICA Y FORENSE', codigo:'14L36', creditos:3, nivel:7, reqs:['14L32']},
+        {curso:'PSICOLOGÍA, EXISTENCIA Y SENTIDO', codigo:'14L37', creditos:3, nivel:7, reqs:['14L31']},
+        {curso:'PSICOLOGÍA DE LA SALUD', codigo:'14L38', creditos:3, nivel:7, reqs:['14L32']},
+        {curso:'GESTIÓN DEL TALENTO EN LAS ORGANIZACIONES', codigo:'14L39', creditos:3, nivel:7, reqs:['14L21']},
+        {curso:'SUFICIENCIA SEGUNDO IDIOMAS III', codigo:'14L40', creditos:3, nivel:7, reqs:['14L35']},
+        {curso:'ELECTIVA GERENCIAL III', codigo:'14L41', creditos:3, nivel:7, reqs:['14L23']},
+        
+        {curso:'ELECTIVA DE PROFUNDIZACIÓN I', codigo:'14L42', creditos:3, nivel:8, reqs:[]},
+        {curso:'ELECTIVA DE PROFUNDIZACIÓN II', codigo:'14L43', creditos:3, nivel:8, reqs:[]},
+        {curso:'ELECTIVA DE PROFUNDIZACIÓN III', codigo:'14L44', creditos:3, nivel:8, reqs:[]},
+        {curso:'ELECTIVA DE PROFUNDIZACIÓN IV', codigo:'14L45', creditos:3, nivel:8, reqs:[]},
+        {curso:'ELECTIVA GERENCIAL IV', codigo:'14L46', creditos:3, nivel:8, reqs:['14L23']},
+        
+        {curso:'PRÁCTICA CLÍNICA', codigo:'14L47', creditos:6, nivel:9, reqs:['14L18', '14L30', '14L38', '14L42', '14L43', '14L44', '14L45']},
+        {curso:'OPCIÓN DE GRADO I', codigo:'14L48', creditos:9, nivel:9, reqs:[]},
+        
+        {curso:'PRÁCTICA PROFESIONAL', codigo:'14L49', creditos:12, nivel:10, reqs:['ALL']},
+        {curso:'OPCIÓN DE GRADO II', codigo:'14L50', creditos:3, nivel:10, reqs:[]}
     ];
 
-    /* GENERACIÓN UI */
-    const semestresDiv = document.querySelector('.semestres');
-    for(let s=1; s<=10; s++){
-      const total = cursos.filter(c=>c.nivel===s).reduce((a,b)=>a+b.creditos,0);
-      const div = document.createElement('div');
-      div.className = 'sem-btn';
-      div.dataset.sem = s;
-      div.innerHTML = `<strong>SEMESTRE ${s}</strong><span>${total} créditos</span>`;
-      semestresDiv.appendChild(div);
+    const UI = {
+        navContainer: document.getElementById('niveles-container'),
+        mallaContainer: document.getElementById('malla-container'),
+        title: document.getElementById('curso-title'),
+        meta: document.getElementById('curso-meta'),
+        desc: document.getElementById('curso-desc'),
+        rutasCard: document.getElementById('rutas-card'),
+        mallaOverlay: document.getElementById('malla-overlay'),
+        rutasSelector: document.getElementById('rutas-selector'),
+        mapaLista: document.getElementById('mapa-lista'),
+        btnVolver: document.getElementById('btn-volver-rutas'),
+        mainTitle: document.getElementById('main-rutas-title'),
+        mainSubtitle: document.getElementById('main-rutas-subtitle')
+    };
+
+    function init() {
+        generarNavegacion();
+        seleccionarNivel(1);
+        
+        document.getElementById('btn-close-card').onclick = () => {
+            UI.rutasCard.classList.remove('show');
+            UI.mallaOverlay.classList.remove('show');
+            setTimeout(restaurarRutas, 500); 
+        };
+        
+        UI.mallaOverlay.addEventListener('click', () => {
+            UI.rutasCard.classList.remove('show');
+            UI.mallaOverlay.classList.remove('show');
+            setTimeout(restaurarRutas, 500);
+        });
     }
 
-    const malla = document.getElementById('malla');
-    const title = document.getElementById('curso-title');
-    const meta = document.getElementById('curso-meta');
-    const desc = document.getElementById('curso-desc');
-
-    function renderMalla(sem){
-      malla.innerHTML = '';
-      cursos.filter(c => c.nivel === sem).forEach(c => {
-        const card = document.createElement('div');
-        card.className = 'malla-card';
-        card.dataset.codigo = c.codigo;
-        const hasReq = c.descripcion && c.descripcion.toLowerCase().includes('prerrequisito');
-        if(hasReq){ 
-            card.style.borderLeft = '4px solid var(--gold-border)'; 
-            card.style.background = '#fff'; 
+    function generarNavegacion() {
+        // Renderizamos los 10 niveles (2 filas x 5 columnas)
+        for(let n = 1; n <= 10; n++) {
+            const total = cursos.filter(c => c.nivel === n).reduce((acc, curr) => acc + curr.creditos, 0);
+            
+            // LÓGICA DE CICLOS CUC (1-4 Básico, 5-8 Intermedio, 9-10 Profundización)
+            let cat = '';
+            if (n <= 4) cat = 'cat-basico';            
+            else if (n <= 8) cat = 'cat-intermedio';   
+            else cat = 'cat-profundo';                 
+            
+            const btn = document.createElement('div');
+            btn.className = `nivel-btn ${cat}`;
+            btn.dataset.nivel = n;
+            btn.innerHTML = `<span class="nivel-btn-title">NIVEL ${n}</span><span class="nivel-btn-credits">${total} créditos</span>`;
+            btn.onclick = () => seleccionarNivel(n);
+            UI.navContainer.appendChild(btn);
         }
-        
-        card.innerHTML = `
-            <strong style="color:#222; text-shadow: 1px 1px 2px rgba(0,0,0,0.15); font-size:0.85rem; line-height:1.3;">${c.curso}</strong>
-            ${hasReq ? '<div style="margin-top:8px; font-size:0.7rem; color:#b58900; font-weight:600;">⚠️ Prerrequisito</div>' : ''}
-        `;
-        
-        card.onclick = () => showCourse(c);
-        malla.appendChild(card);
-      });
     }
 
-    // --- FUNCIÓN INTELIGENTE ---
-    function showCourse(c){
-      title.textContent = c.curso;
-      meta.innerHTML = `
-        <div style='display:flex; justify-content:space-between; align-items:center; width:100%;'>
-            <span style="font-weight:600; color:#555;">Código: ${c.codigo}</span>
-            <span style='background:var(--primary); color:white; padding:5px 10px; border-radius:50px; font-size:0.8rem; font-weight:bold;'>
-                ${c.creditos} Créditos
-            </span>
-        </div>`;
-
-      if (c.descripcion && c.descripcion.toLowerCase().includes('prerrequisito')) {
-          let rawText = c.descripcion.replace(/Prerrequisito:/i, '').trim();
-          
-          // --- PROTECCIÓN DE NOMBRES CON COMAS ---
-          rawText = rawText.replace("PENSAMIENTO, COGNICIÓN Y LENGUAJE", "TEMP_PENSAMIENTO");
-          rawText = rawText.replace("PERSONA, GRUPOS Y ORGANIZACIONES", "TEMP_PERSONA");
-          rawText = rawText.replace("ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD", "TEMP_ETICA");
-          rawText = rawText.replace("FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS", "TEMP_FUNDAMENTOS");
-          
-          let reqArray = rawText.split(',');
-
-          let listHtml = '<ul class="req-list">';
-          reqArray.forEach(reqName => {
-              let cleanName = reqName.trim();
-              
-              // Restauramos nombres
-              if(cleanName.includes("TEMP_PENSAMIENTO")){
-                  cleanName = cleanName.replace("TEMP_PENSAMIENTO", "PENSAMIENTO, COGNICIÓN Y LENGUAJE");
-              }
-              if(cleanName.includes("TEMP_PERSONA")){
-                  cleanName = cleanName.replace("TEMP_PERSONA", "PERSONA, GRUPOS Y ORGANIZACIONES");
-              }
-              if(cleanName.includes("TEMP_ETICA")){
-                  cleanName = cleanName.replace("TEMP_ETICA", "ÉTICA, MULTICULTURALIDAD Y DIVERSIDAD");
-              }
-              if(cleanName.includes("TEMP_FUNDAMENTOS")){
-                  cleanName = cleanName.replace("TEMP_FUNDAMENTOS", "FUNDAMENTOS, EVALUACIÓN Y TÉCNICAS PSICOANALÍTICAS");
-              }
-
-              let nameForSearch = cleanName.split('(')[0].trim();
-              
-              let found = cursos.find(x => x.curso === nameForSearch);
-              let semLabel = found ? `(Semestre ${found.nivel})` : '';
-
-              listHtml += `<li><span class="req-name">${nameForSearch}</span> <span class="req-semestre">${semLabel}</span></li>`;
-          });
-          listHtml += '</ul>';
-
-          desc.innerHTML = `<strong style="color:var(--primary); display:block; margin-bottom:5px; text-transform:uppercase; font-size:0.8rem;">Requisitos para cursar:</strong>${listHtml}`;
-      } else {
-          desc.innerHTML = '<div style="padding:15px; background:#f9f9f9; border-radius:8px; color:#666; font-size:0.85rem;">✅ Esta asignatura no tiene prerrequisitos registrados.</div>';
-      }
+    function seleccionarNivel(n) {
+        document.querySelectorAll('.nivel-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.nivel-btn[data-nivel="${n}"]`).classList.add('active');
+        UI.mallaContainer.innerHTML = '';
+        
+        cursos.filter(c => c.nivel === n).forEach((c, index) => {
+            const card = document.createElement('div');
+            card.className = `malla-card ${c.reqs.length > 0 ? 'has-req' : ''}`;
+            card.style.animationDelay = `${index * 0.08}s`; 
+            
+            card.innerHTML = `<span class="malla-curso-nombre">${c.curso}</span>${c.reqs.length > 0 ? '<div style="margin-top:8px; font-size:0.65rem; color:var(--accent-gold); font-weight:900;">⚠️ Requisito</div>' : ''}`;
+            
+            card.onclick = () => {
+                UI.title.textContent = c.curso;
+                UI.meta.innerHTML = `<span style="font-weight:800; color:#000; font-size:0.85rem;">COD: ${c.codigo}</span><span class="curso-badge">${c.creditos} CR</span>`;
+                
+                // Activar ventana flotante y Overlay si es Gerencial
+                if(c.curso.includes("GERENCIAL")) {
+                    restaurarRutas();
+                    UI.rutasCard.classList.add('show');
+                    UI.mallaOverlay.classList.add('show');
+                } else {
+                    UI.rutasCard.classList.remove('show');
+                    UI.mallaOverlay.classList.remove('show');
+                }
+                
+                // Lector Inteligente de Requisitos V2.0
+                if(c.reqs.length === 0) {
+                    UI.desc.innerHTML = '<div class="req-empty">✅ Sin prerrequisitos.</div>';
+                }
+                else if(c.reqs[0] === 'ALL') {
+                    UI.desc.innerHTML = '<div class="req-empty" style="border-left: 4px solid var(--primary);">🔒 <strong style="color:var(--primary);">Requisito General:</strong><br>Cursar y aprobar todas las asignaturas previas.</div>';
+                }
+                else {
+                    let h = '<span class="req-title">Requisitos para cursar:</span><ul class="req-list">';
+                    c.reqs.forEach(r => {
+                        const d = cursos.find(x => x.codigo === r);
+                        if(d) h += `<li><span style="font-weight:800;">${d.curso}</span><span class="req-nivel">(Nivel ${d.nivel})</span></li>`;
+                    });
+                    UI.desc.innerHTML = h + '</ul>';
+                }
+            };
+            UI.mallaContainer.appendChild(card);
+        });
     }
 
-    document.querySelectorAll('.sem-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.sem-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderMalla(parseInt(btn.dataset.sem));
-      });
-    });
+    function profundizarRama(ruta) {
+        UI.rutasSelector.style.display = 'none';
+        UI.mainSubtitle.style.display = 'none';
+        
+        const tituloRuta = ruta === 'Emprendimiento' ? 'Emprendimiento e Innovación' : ruta;
+        UI.mainTitle.innerHTML = `<span style="color:#000; font-size:0.9rem; display:block; margin-bottom:5px;">Ruta Seleccionada:</span> ${tituloRuta}`;
+        
+        UI.mapaLista.style.display = 'block';
+        UI.btnVolver.style.display = 'flex';
+        
+        const key = ruta.startsWith('Emprendimiento') ? 'Emprendimiento' : ruta;
+        const temas = datosRutas[key];
+        UI.mapaLista.innerHTML = '';
+        temas.forEach((t, index) => {
+            const item = document.createElement('div');
+            item.className = 'mapa-item';
+            item.style.animationDelay = `${index * 0.08}s`; 
+            item.textContent = t;
+            UI.mapaLista.appendChild(item);
+        });
+    }
 
-    renderMalla(1);
-    document.querySelector('.sem-btn[data-sem="1"]').classList.add('active');
+    function restaurarRutas() {
+        UI.rutasSelector.style.display = 'flex';
+        UI.mainSubtitle.style.display = 'block';
+        UI.mapaLista.style.display = 'none';
+        UI.btnVolver.style.display = 'none';
+        UI.mainTitle.textContent = 'Rutas Electivas Gerenciales';
+        UI.mapaLista.innerHTML = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
